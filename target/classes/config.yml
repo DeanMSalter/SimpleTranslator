@@ -1,0 +1,5 @@
+general:
+  enabled: true
+  apiKey: ""
+  defaultLanguage: "en"
+messages:
