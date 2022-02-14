@@ -11,9 +11,24 @@ commands:
   SimpleTranslator reload:
     description: reload plugin
     usage: /SimpleTranslator reload
-    permission: SimpleTranslator.reload
+    permission: SimpleTranslator.admin.reload
   SimpleTranslator myLanguage:
     description: sets player language
     usage: /SimpleTranslator myLanguage
-    permission: SimpleTranslator.myLanguage
-depend: [ProtocolLib]
+    permission: SimpleTranslator.player.myLanguage
+permissions:
+  SimpleTranslator.player.*:
+    description: Gives access to all SimpleTranslator permissions
+    children:
+      SimpleTranslator.player.myLanguage: true
+  SimpleTranslator.admin.*:
+    description: Gives access to all SimpleTranslator admin permissions
+    children:
+      SimpleTranslator.admin.reload: true
+#individual permissions
+  SimpleTranslator.player.myLanguage:
+    description: Allows you to set your language
+    default: op
+  SimpleTranslator.admin.reload:
+    description: Allows you to reload SimpleTranslator configs
+    default: op

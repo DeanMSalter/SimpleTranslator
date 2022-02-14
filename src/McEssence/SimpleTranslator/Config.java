@@ -26,6 +26,15 @@ public class Config{
     public String getDefaultLanguage(){
         return main.getConfig().getString("general.defaultLanguage");
     }
+    public String getNoLanguageProvidedMessage(){
+        return main.getConfig().getString("messages.noLanguageProvidedMessage");
+    }
+    public String getLanguageNotFoundMessage(){
+        return main.getConfig().getString("messages.languageNotFound");
+    }
+    public String getLanguageSelectedMessage(){
+        return main.getConfig().getString("messages.languageSelected");
+    }
     public String getPlayerLanguage(Player player){
         File preferencesFile = new File(main.getDataFolder(), "preferences.yml");
         FileConfiguration preferencesConfig = YamlConfiguration.loadConfiguration(preferencesFile);

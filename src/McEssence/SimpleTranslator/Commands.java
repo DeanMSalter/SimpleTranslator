@@ -30,10 +30,14 @@ public class Commands implements CommandExecutor {
         }
         switch(args[0].toUpperCase()) {
             case "RELOAD":
-                reload(commandSender, command, label, args);
+                if (hasPermission(commandSender, "SimpleTranslator.admin.reload", true)) {
+                    reload(commandSender, command, label, args);
+                }
                 break;
             case "MYLANGUAGE":
-                myLanguage(commandSender, command, label, args);
+                if (hasPermission(commandSender, "SimpleTranslator.player.myLanguage", false)) {
+                    myLanguage(commandSender, command, label, args);
+                }
                 break;
             default:
                 break;
@@ -49,13 +53,13 @@ public class Commands implements CommandExecutor {
     private Boolean myLanguage(CommandSender commandSender, Command command, String s, String[] args) {
         Player player = (Player) commandSender;
         if (args.length <= 1 || args[1] == null) {
-            player.sendMessage("No language provided");
+            player.sendMessage(config.getNoLanguageProvidedMessage());
             return true;
         }
         String languageRequest = args[1];
         String languageCode = getLanguageCode(languageRequest);
         if (languageCode == null) {
-            player.sendMessage("language was not valid");
+            player.sendMessage(config.getLanguageNotFoundMessage());
             return true;
         }
 
@@ -72,10 +76,26 @@ public class Commands implements CommandExecutor {
 
         try{
             preferencesConfig.save(preferencesFile);
+            player.sendMessage(config.getLanguageSelectedMessage() + ": " + languageCode);
         }catch(IOException e){
-
+            player.sendMessage("An error occurred while setting your language");
         }
         return true;
+    }
+    private Boolean hasPermission(CommandSender commandSender, String permission, boolean allowConsole) {
+        if (!(commandSender instanceof Player) && !allowConsole) {
+            commandSender.sendMessage("This command can not be run from the console.");
+            return false;
+        }else if(!(commandSender instanceof Player)) {
+            return true;
+        }
+        Player player = (Player) commandSender;
+        if (player.hasPermission(permission)) {
+            return true;
+        }else {
+            commandSender.sendMessage("You do not have permission.");
+        }
+        return false;
     }
 
     private String getLanguageCode(String lng){
@@ -87,10 +107,12 @@ public class Commands implements CommandExecutor {
             // get the language name in english for comparison
             String langLocal = locale.getDisplayLanguage(loc).toLowerCase();
             if (lng.equals(langLocal)){
-                return locale.getISO3Language();
+                return locale.getLanguage();
             }
         }
         return null;
     }
+
+
 }
 

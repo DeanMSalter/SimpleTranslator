@@ -3,3 +3,6 @@ general:
   apiKey: ""
   defaultLanguage: "en"
 messages:
+  noLanguageProvidedMessage: "No Language Provided"
+  languageNotFound: "Language Not Found"
+  languageSelected: "You have selected your language"

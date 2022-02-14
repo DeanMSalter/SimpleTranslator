@@ -1,9 +1,5 @@
 package McEssence.SimpleTranslator;
 
-import com.comphenix.protocol.Packets;
-import com.comphenix.protocol.events.ConnectionSide;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,8 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.ProtocolLibrary;
 
 public class Main extends JavaPlugin {
     Config config;
